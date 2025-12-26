@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Ambient Light</title>
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      transition: background-color 0.2s linear;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+async function updateColor() {
+  try {
+    const response = await fetch("http://192.168.29.98:5000/color");
+    const color = await response.json();
+    document.body.style.backgroundColor =
+      `rgb(${color.r}, ${color.g}, ${color.b})`;
+  } catch (e) {
+    console.log("Waiting for server...");
+  }
+}
+
+setInterval(updateColor, 100);
+</script>
+
+</body>
+</html>
